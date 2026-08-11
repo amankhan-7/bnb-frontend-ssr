@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Baby, BedDouble, Users } from "lucide-react";
 
 
-export default function RoomCard(
+export default function RoomCard({
   room,
   isSelected,
   available,
@@ -10,7 +10,7 @@ export default function RoomCard(
   router,
   toast,
   setSelectedRoom,
-  handleSelect,
+  handleSelect,}
 ) {
   return (
     <div

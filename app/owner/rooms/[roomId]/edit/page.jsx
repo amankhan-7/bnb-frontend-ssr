@@ -427,7 +427,7 @@ export default function EditRoomPage() {
           <button
             type="submit"
             disabled={submitting || uploading}
-            className="inline-flex items-center justify-center rounded-full bg-rose-500 text-white px-7 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 shadow-md shadow-rose-500/10 hover:shadow-rose-500/20 disabled:opacity-50 transition active:scale-95"
+            className="inline-flex items-center justify-center rounded-full bg-rose-500 to-pink-500 text-white px-7 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 shadow-md shadow-rose-500/10 hover:shadow-rose-500/20 disabled:opacity-50 transition active:scale-95"
           >
             {submitting || uploading ? (
               <span className="flex items-center gap-2">
