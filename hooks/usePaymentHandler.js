@@ -73,16 +73,17 @@ export const usePaymentHandler = ({
         guests,
       }).unwrap();
 
-      // Extract bookingId safely from response
-      const bookingData =
-        bookingRes?.booking ||
-        bookingRes?.data?.booking ||
-        bookingRes?.data ||
-        bookingRes;
+      // Extract bookingId and order details
+      //console.log("Create booking response:", bookingRes);
+      const bookingData = bookingRes.booking;
 
-      const bookingId = bookingData?._id || bookingData?.id;
+      const bookingId = bookingData._id;
       if (!bookingId) {
-        throw new Error("Invalid booking response. Missing booking ID.");
+        throw new Error("Invalid booking response.");
+      }
+
+      if (!bookingId || !bookingData) {
+        throw new Error("Invalid response received from create-order API");
       }
 
       setLoadingText("Preparing secure payment...");
@@ -92,47 +93,17 @@ export const usePaymentHandler = ({
         bookingId,
       }).unwrap();
 
-      const keyId =
-        paymentOrder?.data?.keyId ||
-        paymentOrder?.keyId ||
-        paymentOrder?.data?.key ||
-        paymentOrder?.key ||
-        process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
-        PAYMENT_CONFIG.RAZORPAY_KEY_ID;
-
-      const orderId =
-        paymentOrder?.data?.orderId ||
-        paymentOrder?.orderId ||
-        paymentOrder?.data?.id ||
-        paymentOrder?.id;
-
-      const amount =
-        paymentOrder?.data?.amount ||
-        paymentOrder?.amount;
-
-      const currency =
-        paymentOrder?.data?.currency ||
-        paymentOrder?.currency ||
-        PAYMENT_CONFIG.CURRENCY ||
-        "INR";
-
-      if (!keyId) {
-        throw new Error("Razorpay Key ID is missing. Check server configuration.");
-      }
-
-      if (!orderId) {
-        throw new Error("Razorpay Order ID is missing from create-order response.");
-      }
-
-      // 4. Open Razorpay Checkout
+      // 3. Open Razorpay Checkout
       const options = {
-        key: keyId,
-        amount: amount,
-        currency: currency,
+        key: paymentOrder.data.keyId,
+        amount: paymentOrder.data.amount,
+        currency:
+          paymentOrder.data.currency || PAYMENT_CONFIG.CURRENCY || "INR",
         name: PAYMENT_CONFIG.COMPANY_NAME || "Aman Inns",
         description: PAYMENT_CONFIG.DESCRIPTION || "Hotel Room Booking",
-        order_id: orderId,
+        order_id: paymentOrder.data.orderId,
         handler: async (response) => {
+          //console.log("respone", response);
           try {
             setLoadingText("Verifying your payment...");
 
@@ -148,11 +119,11 @@ export const usePaymentHandler = ({
             setTimeout(() => {
               router.push("/bookings");
               setTimeout(() => {
-                toast.success("Payment completed and verified successfully!", {
+                toast.success("Payment completed and verified successfully! ", {
                   id: "payment-toast",
                 });
-              }, 1000);
-            }, 500);
+              }, 2000);
+            }, 1000);
             setIsProcessing(false);
           } catch (err) {
             console.error("Payment confirmation or verification failed:", err);
@@ -179,8 +150,8 @@ export const usePaymentHandler = ({
       const rzp = new window.Razorpay(options);
       rzp.on("payment.failed", (response) => {
         setIsProcessing(false);
-        console.error("Razorpay payment failed:", response?.error);
-        toast.error(`Payment failed: ${response?.error?.description || "Transaction failed"}`);
+        console.error("Razorpay payment failed:", response.error);
+        toast.error(`Payment failed: ${response.error.description}`);
       });
       rzp.open();
     } catch (err) {
@@ -197,4 +168,3 @@ export const usePaymentHandler = ({
 
   return { initiatePayment, isProcessing, loadingText };
 };
-
