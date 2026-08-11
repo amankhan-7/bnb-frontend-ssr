@@ -27,21 +27,27 @@ export default function HotelPage() {
   const router = useRouter();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
-  const today = useMemo(() => new Date(), []);
-  const defaultCheckIn = useMemo(
-    () => today.toISOString().split("T")[0],
-    [today],
-  );
+  const defaultCheckIn = useMemo(() => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }, []);
 
   const defaultCheckOut = useMemo(() => {
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    return tomorrow.toISOString().split("T")[0];
-  }, [today]);
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }, []);
 
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [checkIn, setCheckIn] = useState(defaultCheckIn);
   const [checkOut, setCheckOut] = useState(defaultCheckOut);
+
 
   const rating = useMemo(() => {
     if (!id) return "4.8";
@@ -277,11 +283,14 @@ export default function HotelPage() {
       </div>
 
       <Rooms
-        rooms={rooms?.data ?? []}
+        rooms={rooms}
         roomAvailability={roomAvailability}
         selectedRoom={selectedRoom}
         setSelectedRoom={setSelectedRoom}
+        checkIn={checkIn}
+        checkOut={checkOut}
       />
+
 
       {selectedRoom && (
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 px-6 py-4.5 flex items-center justify-between shadow-xl lg:hidden">

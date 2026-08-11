@@ -106,10 +106,10 @@ export default function OwnerLayout({ children }) {
         <div className="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/owner" className="flex items-center gap-2 group">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform duration-200">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-500 text-white shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform duration-200">
                 <Hotel className="h-5 w-5" />
               </span>
-              <span className="font-bold text-lg bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 bg-clip-text text-transparent tracking-tight">
+              <span className="font-bold text-lg bg-rose-500 bg-clip-text text-transparent tracking-tight">
                 Aman Inns Owner
               </span>
             </Link>

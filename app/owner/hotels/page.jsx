@@ -68,7 +68,7 @@ export default function OwnerHotelsPage() {
         </div>
         <Link
           href="/owner/hotels/new"
-          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white px-4.5 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 transition shadow-md shadow-rose-500/10 hover:shadow-rose-500/20 active:scale-95"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-rose-600 text-white px-4.5 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 transition shadow-md shadow-rose-500/10 hover:shadow-rose-500/20 active:scale-95"
         >
           <Plus className="h-4.5 w-4.5" />
           Create Hotel
@@ -83,7 +83,7 @@ export default function OwnerHotelsPage() {
           <div className="space-y-1">
             <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">No properties found</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              You haven't listed any hotels yet. Get started by adding your first hotel.
+            You haven&apos;t listed any hotels yet. Get started by adding your first hotel.
             </p>
           </div>
           <Link
@@ -125,8 +125,8 @@ export default function OwnerHotelsPage() {
                     <span
                       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm backdrop-blur-md ${
                         hotel.active
-                          ? "bg-emerald-500/90 text-white"
-                          : "bg-amber-500/90 text-white"
+                          ? "bg-emerald-500 opacity-80 text-white"
+                          : "bg-amber-500/90 opacity-90 text-white"
                       }`}
                     >
                       <span className={`h-1.5 w-1.5 rounded-full bg-white ${hotel.active ? "animate-pulse" : ""}`} />

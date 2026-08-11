@@ -19,6 +19,7 @@ import {
 import { useUpdateProfileMutation } from "@/lib/api";
 import toast from "react-hot-toast";
 import LoadingState from "@/components/loading";
+import AuthGuard from "@/components/wrapper/AuthGuard";
 
 export default function AccountPage() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function AccountPage() {
   });
 
   const { user, accessToken, isAuthenticated, logout, isLoading } = useAuth();
-  console.log("user", user);
+  //console.log("user", user);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -102,7 +103,8 @@ export default function AccountPage() {
   };
 
   return (
-    <main className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
+    <AuthGuard redirectTo="/">
+      <main className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
       {/* Blurred background image */}
       <Image
         src={background}
@@ -120,7 +122,7 @@ export default function AccountPage() {
           <button
             type="button"
             onClick={() => {
-              if (user.role === "owner") {
+              if (user?.role === "owner") {
                 router.push("/owner");
               } else {
                 router.push("/");
@@ -129,7 +131,7 @@ export default function AccountPage() {
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-850 dark:text-gray-400 dark:hover:text-gray-200 transition"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>{user.role === "owner" ? "Dashboard" : "Home"}</span>
+            <span>{user?.role === "owner" ? "Dashboard" : "Home"}</span>
           </button>
 
           {!isEditing && (
@@ -148,7 +150,7 @@ export default function AccountPage() {
           {/* Avatar circle */}
           <div className="relative group">
             <div className="w-20 h-20 rounded-3xl bg-linear-to-tr from-rose-500 to-pink-500 text-white flex items-center justify-center text-3xl font-extrabold shadow-lg shadow-rose-500/20">
-              {user.name?.charAt(0).toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase()}
             </div>
             <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white ring-2 ring-white dark:ring-gray-900">
               <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
@@ -158,10 +160,10 @@ export default function AccountPage() {
           {!isEditing ? (
             <div className="space-y-1">
               <h2 className="text-xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                {user.name}
+                {user?.name}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {user.email}
+                {user?.email}
               </p>
             </div>
           ) : (
@@ -176,7 +178,7 @@ export default function AccountPage() {
           {!isEditing && (
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950/35 border border-rose-100 dark:border-rose-900/30 text-xs font-bold text-rose-600 dark:text-rose-400 shadow-sm uppercase tracking-wider">
               <Shield className="h-3.5 w-3.5" />
-              {user.role}
+              {user?.role}
             </div>
           )}
         </div>
@@ -289,5 +291,7 @@ export default function AccountPage() {
         )}
       </div>
     </main>
+    </AuthGuard>
+    
   );
 }

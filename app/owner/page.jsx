@@ -90,7 +90,7 @@ export default function OwnerDashboardPage() {
           <div className="flex flex-wrap gap-3 shrink-0">
             <Link
               href="/owner/hotels"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white px-5 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 shadow-lg shadow-rose-500/15 hover:shadow-rose-500/25 transition-all duration-200 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-rose-500 text-white px-5 py-2.5 text-sm font-semibold hover:from-rose-600 hover:to-pink-600 shadow-lg shadow-rose-500/15 hover:shadow-rose-500/25 transition-all duration-200 active:scale-95"
             >
               <Building className="h-4 w-4" />
               Manage Hotels
