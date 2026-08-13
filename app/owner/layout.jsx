@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLazyGetProfileQuery } from "@/lib/api";
 import ThemeToggle from "@/utils/Theme/ThemeToggle";
-import { LayoutDashboard, Hotel, User, Home, ShieldAlert } from "lucide-react";
+import { LayoutDashboard, Hotel, User, Home, ShieldAlert, ChartNoAxesCombined } from "lucide-react";
 
 import { useAuth } from "@/utils/useAuth";
 
@@ -136,6 +136,18 @@ export default function OwnerLayout({ children }) {
               >
                 <Hotel className="h-4 w-4" />
                 My Hotels
+              </Link>
+
+               <Link
+                href="/owner/analytics"
+                className={`flex items-center gap-1.5 px-3 py-1.75 rounded-full transition-all duration-200 ${
+                  isTabActive("/owner/analytics")
+                    ? "bg-rose-50 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-950 dark:hover:text-gray-100 hover:bg-gray-100/60 dark:hover:bg-gray-800/50"
+                }`}
+              >
+                <ChartNoAxesCombined className="h-4 w-4" />
+                Analytics
               </Link>
             </nav>
           </div>
