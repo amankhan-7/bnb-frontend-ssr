@@ -196,6 +196,18 @@ export default function OwnerLayout({ children }) {
             <Hotel className="h-4.5 w-4.5" />
             My Hotels
           </Link>
+
+           <Link
+                href="/owner/analytics"
+                className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-xs font-medium ${
+                  isTabActive("/owner/analytics")
+                    ? "bg-rose-50 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-950 dark:hover:text-gray-100 hover:bg-gray-100/60 dark:hover:bg-gray-800/50"
+                }`}
+              >
+                <ChartNoAxesCombined className="h-4 w-4" />
+                Analytics
+              </Link>
         </div>
       </header>
       <main className="max-w-6xl mx-auto px-4 py-6 md:py-8">{children}</main>
